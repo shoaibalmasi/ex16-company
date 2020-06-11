@@ -4,10 +4,10 @@ const Company=require('../models/company')
 
 //add new company
 router.post('/addCompany',(req, res)=>{
-    // if(!req.body.companyName || !req.body.registrationNumber || !req.body.registrationDate
-    //     || !req.body.phoneNumber || !req.body.cityName || !req.body.provinceName){
-    //         return res.status(400).send('Empty field!');
-    //     }
+    if(!req.body.companyName || !req.body.registrationNumber || !req.body.registrationDate
+        || !req.body.phoneNumber || !req.body.cityName || !req.body.provinceName){
+            return res.status(400).send('Empty field!');
+        }
     
         // Company.findOne({$or: [{companyName: req.body.companyName.trim() },{registrationNumber:req.body.registrationNumber}]},
         //  (err, existCompany) => {
