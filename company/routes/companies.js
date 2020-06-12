@@ -39,7 +39,10 @@ router.get("/allCompanies", (req, res) => {
 
     Company.find({}, (err, companies) => {
         if (err) return res.status(500).send("Something went wrong in get all companies! \n" + err);
-        return res.json(companies)
+        return res.render("/pages/companies",{companies})
+        // return res.json(companies)
+            
+        
     })
 });
 
