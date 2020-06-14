@@ -1,8 +1,29 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-top: 40px;
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ align-items: center;
 }
 
-a {
-  color: #00B7FF;
+table{
+  margin-top: 20px;
+}
+#add-btn{
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+}
+.fa-edit{
+  color: yellow;
+}
+.fa-folder-open{
+  color: rgb(69, 235, 69)
+}
+.fa-trash{
+  color: red;
+}
+.btn-edit{
+  font-size: 10px;
+  margin-top: 5px;
 }

@@ -28,9 +28,11 @@ mongoose.connect(
   }
 )
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 app.use('/companies', companiesRouter);
 app.use('/employees', employeesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
