@@ -38,7 +38,7 @@ function addEmployee(companyId){
 
 // func for cancle 
 function cancleFunc(){
-    $('input').val('');   
+    $('.modal-body input').val('');   
     }
 
 //func for delete employee
@@ -71,27 +71,27 @@ function editEmployee(id,compId,row){
         birthdayDate:$(`#${row}-birthday`).html(),
 
     }
-    console.log(lastInfo.isManager);
+    console.log(lastInfo.isManager.length);
     
     $(`#${row}`).html(`
     <td>${lastInfo.rowNum}</td>
-    <td><input type="text" id="new-first-name" value="${lastInfo.firstName}" class="form-control col-10"></td>
-    <td><input type="text" id="new-last-number" value="${lastInfo.lastName}" class="form-control col-10"></td>
-    <td><input type="text" id="new-national" value="${lastInfo.nationalCode}" class="form-control col-10"></td>
+    <td><input type="text" id="new-first-name" value="${lastInfo.firstName}" class="form-control"></td>
+    <td><input type="text" id="new-last-number" value="${lastInfo.lastName}" class="form-control"></td>
+    <td><input type="text" id="new-national" value="${lastInfo.nationalCode}" class="form-control"></td>
     <td><select id="new-gender" class="form-control">
         ${lastInfo.gender==='male'? 
           '<option value="female">زن</option> <option value="male" selected>مرد</option>':' <option value="female" selected>زن</option><option value="male" >مرد</option>'
             }
         </select></td>
-        <td><select id="new-post" class="form-control col-10">
-        ${lastInfo.isManager==='Manager'? 
+        <td><select id="new-post" class="form-control">
+        ${lastInfo.isManager==='مدیر'? 
           '<option value="false">کارمند</option> <option value="true" selected>مدیر</option>':' <option value="false" selected>کارمند</option><option value="true" >مدیر</option>'
             }
         </select></td>
-    <td><input type="text" id="new-birth" value="${lastInfo.birthdayDate}" class="form-control col-10"></td>
+    <td><input type="text" id="new-birth" value="${lastInfo.birthdayDate}" class="form-control"></td>
     <td>
-    <button type="button" class="btn btn-success col-12 btn-edit" onclick="saveEdit('${id}','${compId}')" >Save</button>
-    <button type="button" class="btn btn-warning col-12 btn-edit" onclick="cancleEdit('${row}')" >Cancle</button>
+    <button type="button" class="btn btn-success btn-edit" onclick="saveEdit('${id}','${compId}')" >ذخیره</button>
+    <button type="button" class="btn btn-warning btn-edit" onclick="cancleEdit('${row}')" >انصراف</button>
     </td>
     `)
     $(function() {

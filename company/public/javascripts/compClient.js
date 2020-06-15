@@ -38,7 +38,7 @@ function addCompany(){
 
 // func for cancle 
 function cancleFunc(){
-$('input').val('');   
+$('.modal-body input').val('');   
 }
 
 //func for delete company
@@ -74,15 +74,15 @@ function editCompany(id,row){
     }
     $(`#${row}`).html(`
     <td>${lastInfo.rowNum}</td>
-    <td><input type="text" id="company-new-name" value="${lastInfo.companyName}" class="form-control col-10"></td>
-    <td><input type="text" id="reg-new-number" value="${lastInfo.registrationNumber}" class="form-control col-10"></td>
-    <td><input type="text" id="reg-new-date" value="${lastInfo.registrationDate}" class="form-control col-10"></td>
-    <td><input type="text" id="new-phone-number" value="${lastInfo.phoneNumber}" class="form-control col-10"></td>
-    <td><input type="text" id="new-city" value="${lastInfo.cityName}" class="form-control col-10"></td>
-    <td><input type="text" id="new-province" value="${lastInfo.provinceName}" class="form-control col-10"></td>
+    <td><input type="text" id="company-new-name" value="${lastInfo.companyName}" class="form-control"></td>
+    <td><input type="text" id="reg-new-number" value="${lastInfo.registrationNumber}" class="form-control"></td>
+    <td><input type="text" id="reg-new-date" value="${lastInfo.registrationDate}" class="form-control"></td>
+    <td><input type="text" id="new-phone-number" value="${lastInfo.phoneNumber}" class="form-control"></td>
+    <td><input type="text" id="new-city" value="${lastInfo.cityName}" class="form-control"></td>
+    <td><input type="text" id="new-province" value="${lastInfo.provinceName}" class="form-control"></td>
     <td>
-    <button type="button" class="btn btn-success col-12 btn-edit" onclick="saveEdit('${id}')" >Save</button>
-    <button type="button" class="btn btn-warning col-12 btn-edit" onclick="cancleEdit('${row}')" >Cancle</button>
+    <button type="button" class="btn btn-success btn-edit" onclick="saveEdit('${id}')" >ذخیره</button>
+    <button type="button" class="btn btn-warning btn-edit" onclick="cancleEdit('${row}')" >انصراف</button>
     </td>
     `)
     $(function() {
