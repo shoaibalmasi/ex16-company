@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
+
 
 const companiesRouter = require('./routes/companies');
 const employeesRouter = require('./routes/employees');
@@ -49,5 +50,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
+
 
 module.exports = app;

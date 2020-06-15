@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/datePicker/css/persianDatepicker-default.css" />
+  <title>employee</title>
+</head>
+
+<body>
+ 
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">add new employee</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancleFunc()">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <input type="text" id="first-name" class="form-control" placeholder="Enter first name">
+         <input type="text" id="last-name" class="form-control" placeholder="Enter last name">
+         <input type="text" id="national-code" class="form-control" placeholder="Enter national code">
+         <select id="gender" class="form-control">
+          <option value="female">زن</option>
+          <option value="male">مرد</option>
+        </select>
+        <select id="isManager" class="form-control" >
+          <option value="false">کارمند</option>
+          <option value="true">مدیر</option>
+        </select>
+         <input type="text" id="birthday" class="form-control" placeholder="Enter birthday">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="cancleFunc()">Cancle</button>
+         <button type="button" class="btn btn-primary" onclick="addEmployee('<%= companyId %>')">Add employee</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <button type="button" id="add-btn" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i
+     class="fa fa-plus"></i></button>
+ <table class="table table-hover table-dark col-10">
+   <thead>
+     <tr>
+       <th scope="col">#</th>
+       <th scope="col">First name</th>
+       <th scope="col">Last name</th>
+       <th scope="col">National code</th>
+       <th scope="col">Gender</th>
+       <th scope="col">Post</th>
+       <th scope="col">Birthday</th>
+       <th scope="col"> Details </th>
+     </tr>
+   </thead>
+   <tbody>
+     <% for(let i=0; i < employees.length ; i++) { %>
+     <tr id="tr<%= i+1 %>">
+       <td id="tr<%= i+1 %>-row"><%= i+1 %></td>
+       <td id="tr<%= i+1 %>-firstName"><%= employees[i].firstName %></td>
+       <td id="tr<%= i+1 %>-lastName"><%= employees[i].lastName %></td>
+       <td id="tr<%= i+1 %>-national"><%= employees[i].nationalCode %></td>
+       <td id="tr<%= i+1 %>-gender"><%= employees[i].gender %></td>
+       <td id="tr<%= i+1 %>-isManager"><% if(employees[i].isManager){ %>Manager<%}else{ %>employee<%} %></td>
+       <td id="tr<%= i+1 %>-birthday">
+         <%= jalali.from(employees[i].birthdayDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %></td>
+       <td>
+         <i class="fa fa-trash" onclick="deleteEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>')"></i>
+         <i class='fa fa-edit' onclick="editEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>', 'tr<%= i+1 %>')"></i>
+       </td>
+     </tr>
+     <% }; %>
+   </tbody>
+ </table>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <script src="/javascripts/jquery-3.4.1.js"></script>
+  <script src="/datePicker/js/persianDatepicker.min.js"></script>
+  <script src="/javascripts/employeeClient.js"></script>
+  
+</body>
+
+</html>

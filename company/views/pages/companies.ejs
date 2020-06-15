@@ -9,6 +9,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/datePicker/css/persianDatepicker-default.css" />
   <title>companies</title>
 </head>
 
@@ -19,18 +20,18 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">add new company</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancleFunc()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <input type="text" name="" id="company-name" placeholder="Enter the company name">
-          <input type="text" name="" id="reg-number" placeholder="Enter the company registration number">
-          <input type="text" name="" id="reg-date" placeholder="Enter the company registration date">
-          <input type="text" name="" id="phone-number" placeholder="Enter the company phone number">
-          <input type="text" name="" id="city" placeholder="Enter the company city name">
-          <input type="text" name="" id="province" placeholder="Enter the company province name">
+          <input type="text" class="form-control" id="company-name" placeholder="Enter the company name">
+          <input type="text" class="form-control" id="reg-number" placeholder="Enter the company registration number">
+          <input type="text" class="form-control" id="reg-date" placeholder="Enter the company registration date">
+          <input type="text" class="form-control" id="phone-number" placeholder="Enter the company phone number">
+          <input type="text" class="form-control" id="city" placeholder="Enter the company city name">
+          <input type="text" class="form-control" id="province" placeholder="Enter the company province name">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="cancleFunc()">Cancle</button>
@@ -56,11 +57,12 @@
     </thead>
     <tbody>
       <% for(let i=0; i < companies.length ; i++) { %>
-      <tr id="tr<%= i+1 %>">
+      <tr id="tr<%= i+1 %>" >
         <td id="tr<%= i+1 %>-row"><%= i+1 %></td>
         <td id="tr<%= i+1 %>-name"><%= companies[i].companyName %></td>
         <td id="tr<%= i+1 %>-regNum"><%= companies[i].registrationNumber %></td>
-        <td id="tr<%= i+1 %>-regDate"><%= companies[i].registrationDate.toLocaleDateString() %></td>
+        <td id="tr<%= i+1 %>-regDate"><%= jalali.from(companies[i].registrationDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %></td>
+        
         <td id="tr<%= i+1 %>-phone"><%= companies[i].phoneNumber %></td>
         <td id="tr<%= i+1 %>-city"><%= companies[i].cityName %></td>
         <td id="tr<%= i+1 %>-province"><%= companies[i].provinceName %></td>
@@ -70,11 +72,9 @@
           <i class='fa fa-folder-open' onclick="companyPage('<%= companies[i].id %>')"></i>
         </td>
       </tr>
-
       <% }; %>
     </tbody>
   </table>
-  <h1></h1>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
   </script>
@@ -85,6 +85,7 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   <script src="/javascripts/jquery-3.4.1.js"></script>
+  <script src="/datePicker/js/persianDatepicker.min.js"></script>
   <script src="/javascripts/compClient.js"></script>
 </body>
 

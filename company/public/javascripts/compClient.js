@@ -1,4 +1,10 @@
-// Ajax reg to add new company
+// call date picker
+$(function() {
+    $("#reg-date").persianDatepicker();     
+});
+
+
+// Ajax req to add new company
 function addCompany(){
     if($('#company-name').val()==="" || $('#reg-number').val()==="" || $('#reg-date').val()==="" ||
     $('#phone-number').val()==="" || $('#city').val()==="" || $('#province').val()==="" ){
@@ -68,17 +74,21 @@ function editCompany(id,row){
     }
     $(`#${row}`).html(`
     <td>${lastInfo.rowNum}</td>
-    <td><input type="text" id="company-new-name" value="${lastInfo.companyName}" class="col-10"></td>
-    <td><input type="text" id="reg-new-number" value="${lastInfo.registrationNumber}" class="col-10"></td>
-    <td><input type="text" id="reg-new-date" value="${lastInfo.registrationDate}" class="col-10"></td>
-    <td><input type="text" id="new-phone-number" value="${lastInfo.phoneNumber}" class="col-10"></td>
-    <td><input type="text" id="new-city" value="${lastInfo.cityName}" class="col-10"></td>
-    <td><input type="text" id="new-province" value="${lastInfo.provinceName}" class="col-10"></td>
+    <td><input type="text" id="company-new-name" value="${lastInfo.companyName}" class="form-control col-10"></td>
+    <td><input type="text" id="reg-new-number" value="${lastInfo.registrationNumber}" class="form-control col-10"></td>
+    <td><input type="text" id="reg-new-date" value="${lastInfo.registrationDate}" class="form-control col-10"></td>
+    <td><input type="text" id="new-phone-number" value="${lastInfo.phoneNumber}" class="form-control col-10"></td>
+    <td><input type="text" id="new-city" value="${lastInfo.cityName}" class="form-control col-10"></td>
+    <td><input type="text" id="new-province" value="${lastInfo.provinceName}" class="form-control col-10"></td>
     <td>
     <button type="button" class="btn btn-success col-12 btn-edit" onclick="saveEdit('${id}')" >Save</button>
     <button type="button" class="btn btn-warning col-12 btn-edit" onclick="cancleEdit('${row}')" >Cancle</button>
     </td>
     `)
+    $(function() {
+        $("#reg-new-date").persianDatepicker(); 
+           
+    });
 }
 
 //func for cancle edit
@@ -129,8 +139,8 @@ function companyPage(id){
         success: function (response) {
             console.log(response);
             
-            document.location=`/employees/${id}`;
-        },
+         document.location=`/employees/${id}`;
+        } ,
         error: function (err){
             document.location='/error' 
         }

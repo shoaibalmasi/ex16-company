@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Company = require('../models/company')
+const Company = require('../models/company');
+const jalali=require("jalali-moment");
 
 //add new company
 router.post('/addCompany', (req, res) => {
@@ -8,6 +9,7 @@ router.post('/addCompany', (req, res) => {
         !req.body.phoneNumber || !req.body.cityName || !req.body.provinceName) {
         return res.status(400).send('Empty field!');
     }
+
     Company.findOne({
         $or: [{
             companyName: req.body.companyName
@@ -21,7 +23,7 @@ router.post('/addCompany', (req, res) => {
         const NEW_COMPANY = new Company({
             companyName: req.body.companyName,
             registrationNumber: req.body.registrationNumber,
-            registrationDate: req.body.registrationDate,
+            registrationDate:jalali.from(req.body.registrationDate, 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD'),
             phoneNumber: req.body.phoneNumber,
             cityName: req.body.cityName,
             provinceName: req.body.provinceName,
@@ -42,7 +44,8 @@ router.get("/allCompanies", (req, res) => {
     Company.find({}, (err, companies) => {
         if (err) return res.status(500).send("Something went wrong in get all companies! \n" + err);
         return res.render("pages/companies", {
-            companies
+            companies:companies,
+            jalali:jalali
         })
 
     })
@@ -69,6 +72,7 @@ router.put("/updateCompany/:companyId", (req, res) => {
             }  
         }
         console.log(chandedUnique);
+        req.body.registrationDate=jalali.from(req.body.registrationDate, 'fa', 'YYYY/MM/DD').format('YYYY-MM-DD');
         if(chandedUnique!==undefined){
             Company.findOne({$or: chandedUnique},(err2,comp)=>{
                 if (err2) return res.status(500).send('Something went wrong!'+ err2);
