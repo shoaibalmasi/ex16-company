@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Company = require('../models/company');
+const Employee = require('../models/employee');
 const jalali=require("jalali-moment");
 
 //add new company
@@ -99,7 +100,12 @@ router.delete("/deleteCompany/:companyId", (req, res) => {
 
         if (err) return res.status(500).send("Something went wrong in delete company! \n" + err);
         if (!company) return res.status(404).send("Company not found");
-        return res.send("company delete successful")
+        Employee.deleteMany({companyInfo: req.params.companyId},(err2,result)=>{
+            if(err) return res.status(500).send("Something went wrong in delete company's employees! \n" + err)
+            console.log(result);
+            res.send("company deleted successfully")
+            
+        })
     })
 });
 
