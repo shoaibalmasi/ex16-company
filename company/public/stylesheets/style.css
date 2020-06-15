@@ -56,3 +56,10 @@ table{
 .modal-body input{
   text-align: right;
 }
+a{
+  margin-top: 10px;
+  color: white;
+}
+a:not([href]) {
+  color: white;
+}
