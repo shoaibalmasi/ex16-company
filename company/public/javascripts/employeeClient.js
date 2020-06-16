@@ -1,78 +1,89 @@
 // call date picker
-$(function() {
-    $("#birthday").persianDatepicker(); 
-       
+$(function () {
+    $("#birthday").persianDatepicker();
 });
 
 // Ajax req to add new employee
-function addEmployee(companyId){
-    if($('#first-name').val()==="" || $('#last-name').val()==="" || $('#national-code').val()==="" ||
-     $('#birthday').val()==="" ){
+function addEmployee(companyId) {
+    //check empty fields
+    if ($('#first-name').val() === "" || $('#last-name').val() === "" || $('#national-code').val() === "" ||
+        $('#birthday').val() === "") {
         alert("please fill all fields")
-    }else{
+    } else {
 
-    let employeeInfo={
-       firstName:$('#first-name').val(),
-       lastName:$('#last-name').val(),
-       nationalCode:$('#national-code').val(),
-       gender:$('#gender').val(),
-       isManager:$('#isManager').val(),
-       birthdayDate:$('#birthday').val(),
-       companyInfo: companyId
-    }
-    $.ajax({
-        type: "Post",
-        url: "/employees/addEmployee",
-        data: employeeInfo,
-        // dataType: "text",
-        success: function (res) {
-          
-             document.location=`/employees/${companyId}`;
-        },
-        error: function(err){
-            document.location='/error'
+        //// Making new employee object
+        let employeeInfo = {
+            firstName: $('#first-name').val(),
+            lastName: $('#last-name').val(),
+            nationalCode: $('#national-code').val(),
+            gender: $('#gender').val(),
+            isManager: $('#isManager').val(),
+            birthdayDate: $('#birthday').val(),
+            companyInfo: companyId
         }
-    });
-}
-}
-
-// func for cancle 
-function cancleFunc(){
-    $('.modal-body input').val('');   
-    }
-
-//func for delete employee
-function deleteEmployee(id,companyId){
-    if(confirm('Are you sure?')){
         $.ajax({
-            type: "DELETE",
-            url: `/employees/${id}`,
-            success: function (response) {
-                  document.location=`/employees/${companyId}`;
+            type: "Post",
+            url: "/employees/addEmployee",
+            data: employeeInfo,
+            success: function (res) {
+                if (res === "exist") {
+                    alert("نام شرکت و یا شماره ثبت تکراری است")
+                } else {
+                    alert("با موفقیت اضافه شد")
+                    document.location = `/employees/${companyId}`;
+                }
             },
-            error: function(err){
-                document.location='/error'
+            error: function (err) {
+                document.location = '/error'
             }
         });
     }
-    }
+}
 
-    //func for edit company
+// func for cancle 
+function cancleFunc() {
+    $('.modal-body input').val('');
+}
+
+//func for delete employee
+function deleteEmployee(id, companyId) {
+    if (confirm('Are you sure?')) {
+        $.ajax({
+            type: "DELETE",
+            url: `/employees/${id}`,
+            success: function (res) {
+                if (res === "deleted") {
+                    alert('با موفقیت حذف شد')
+                    document.location = `/employees/${companyId}`;
+                }
+            },
+            error: function (err) {
+                document.location = '/error'
+            }
+        });
+    }
+}
+
+//func for edit company
 let lastrow;
-function editEmployee(id,compId,row){
-    lastrow=$(`#${row}`).html();
-    let lastInfo={
-        rowNum:$(`#${row}-row`).html(),
-        firstName:$(`#${row}-firstName`).html(),
-        lastName:$(`#${row}-lastName`).html(),
-        nationalCode:$(`#${row}-national`).html(),
-        gender:$(`#${row}-gender`).html(),
-        isManager:$(`#${row}-isManager`).html(),
-        birthdayDate:$(`#${row}-birthday`).html(),
+
+function editEmployee(id, compId, row) {
+
+    //save last row html to use in cancle btn
+    lastrow = $(`#${row}`).html();
+    // save last row info as a object
+    let lastInfo = {
+        rowNum: $(`#${row}-row`).html(),
+        firstName: $(`#${row}-firstName`).html(),
+        lastName: $(`#${row}-lastName`).html(),
+        nationalCode: $(`#${row}-national`).html(),
+        gender: $(`#${row}-gender`).html(),
+        isManager: $(`#${row}-isManager`).html(),
+        birthdayDate: $(`#${row}-birthday`).html(),
 
     }
-    console.log(lastInfo.isManager.length);
-    
+
+    // change chosen row's html to inputs
     $(`#${row}`).html(`
     <td>${lastInfo.rowNum}</td>
     <td><input type="text" id="new-first-name" value="${lastInfo.firstName}" class="form-control"></td>
@@ -94,47 +105,47 @@ function editEmployee(id,compId,row){
     <button type="button" class="btn btn-warning btn-edit" onclick="cancleEdit('${row}')" >انصراف</button>
     </td>
     `)
-    $(function() {
-        $("#new-birth").persianDatepicker();     
+    $(function () {
+        $("#new-birth").persianDatepicker();
     });
 }
 
 //func for cancle edit
-function cancleEdit(row){
-   $(`#${row}`).html(lastrow);
+function cancleEdit(row) {
+    $(`#${row}`).html(lastrow);
 }
 
 //func for save edit
-function saveEdit(id,companyId){
-
-    if($('#new-first-name').val()==="" || $('#new-last-number').val()==="" || $('#new-national').val()==="" ||
-    $('#new-gender').val()==="" || $('#new-post').val()==="" || $('#new-birth').val()==="" ){
+function saveEdit(id, companyId) {
+    //check empty fields
+    if ($('#new-first-name').val() === "" || $('#new-last-number').val() === "" || $('#new-national').val() === "" ||
+        $('#new-gender').val() === "" || $('#new-post').val() === "" || $('#new-birth').val() === "") {
         alert("please fill all fields")
-    }else{
-        
-    let newInfo={
-        firstName:$('#new-first-name').val(),
-        lastName:$('#new-last-number').val(),
-        nationalCode:$('#new-national').val(),
-        gender:$('#new-gender').val(),
-        isManager:$('#new-post').val(),
-        birthdayDate:$('#new-birth').val()
-    }
-    $.ajax({
-        type: "PUT",
-        url: `/employees/${id}`,
-        data: newInfo,
-        dataType: "text",
-        success: function (response) {
-            if(response==='exist'){
-                alert('national code is already exist!')
-            }else{
-                document.location=`/employees/${companyId}`;
-            }  
-        },
-        // error: function(err){
-        //     document.location='/error'
-        // }
-    });
+    } else {
+        //  Making new employee object  
+        let newInfo = {
+            firstName: $('#new-first-name').val(),
+            lastName: $('#new-last-number').val(),
+            nationalCode: $('#new-national').val(),
+            gender: $('#new-gender').val(),
+            isManager: $('#new-post').val(),
+            birthdayDate: $('#new-birth').val()
+        }
+        $.ajax({
+            type: "PUT",
+            url: `/employees/${id}`,
+            data: newInfo,
+            dataType: "text",
+            success: function (response) {
+                if (response === 'exist') {
+                    alert('national code is already exist!')
+                } else {
+                    document.location = `/employees/${companyId}`;
+                }
+            },
+            error: function (err) {
+                document.location = '/error'
+            }
+        });
     }
 }

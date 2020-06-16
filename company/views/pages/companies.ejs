@@ -14,7 +14,8 @@
 </head>
 
 <body>
-  <!-- Modal -->
+
+  <!-- Modal form -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -40,11 +41,12 @@
   <button type="button" id="add-btn" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i
       class="fa fa-plus"></i></button>
 
-      <form method="post" class="">
-        <input type="text" class="form-control" id="from-date" placeholder="از تاریخ">
-        <input type="text" class="form-control" id="to-date" placeholder="تا تاریخ">
-        <button type="button" id="filter-btn" class="form-control btn btn-success col-3" onclick="dateFilter()">فیلتر کن</button>
-      </form>
+  <form method="post" class="">
+    <input type="text" class="form-control" id="from-date" placeholder="از تاریخ">
+    <input type="text" class="form-control" id="to-date" placeholder="تا تاریخ">
+    <button type="button" id="filter-btn" class="form-control btn btn-success col-3" onclick="dateFilter()">فیلتر
+      کن</button>
+  </form>
 
   <table class="table table-hover table-dark col-10">
     <thead>
@@ -61,12 +63,14 @@
     </thead>
     <tbody>
       <% for(let i=0; i < companies.length ; i++) { %>
-      <tr id="tr<%= i+1 %>" >
+      <tr id="tr<%= i+1 %>">
         <td id="tr<%= i+1 %>-row"><%= i+1 %></td>
         <td id="tr<%= i+1 %>-name"><%= companies[i].companyName %></td>
         <td id="tr<%= i+1 %>-regNum"><%= companies[i].registrationNumber %></td>
-        <td id="tr<%= i+1 %>-regDate"><%= jalali.from(companies[i].registrationDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %></td>
-        
+        <td id="tr<%= i+1 %>-regDate">
+          <%= jalali.from(companies[i].registrationDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %>
+        </td>
+
         <td id="tr<%= i+1 %>-phone"><%= companies[i].phoneNumber %></td>
         <td id="tr<%= i+1 %>-city"><%= companies[i].cityName %></td>
         <td id="tr<%= i+1 %>-province"><%= companies[i].provinceName %></td>

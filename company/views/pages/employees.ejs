@@ -14,71 +14,74 @@
 </head>
 
 <body>
- 
-   <!-- Modal -->
-   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">ثبت کارمند جدید</h5>
-       </div>
-       <div class="modal-body">
-         <input type="text" id="first-name" class="form-control" placeholder="نام">
-         <input type="text" id="last-name" class="form-control" placeholder="نام خانوادگی">
-         <input type="text" id="national-code" class="form-control" placeholder="کد ملی">
-         <select id="gender" class="form-control">
-          <option value="female">زن</option>
-          <option value="male">مرد</option>
-        </select>
-        <select id="isManager" class="form-control" >
-          <option value="false">کارمند</option>
-          <option value="true">مدیر</option>
-        </select>
-         <input type="text" id="birthday" class="form-control" placeholder="تاریخ تولد">
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="cancleFunc()">انصراف</button>
-         <button type="button" class="btn btn-primary" onclick="addEmployee('<%= companyId %>')">اضافه کن</button>
-       </div>
-     </div>
-   </div>
- </div>
- <button type="button" id="add-btn" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i
-     class="fa fa-plus"></i></button>
-     <a href="http://localhost:8000/companies/allCompanies" class="btn btn-primary" > بازگشت به لیست شرکت ها</a>
- <table class="table table-hover table-dark col-10">
-   <thead>
-     <tr>
-       <th scope="col">ردیف</th>
-       <th scope="col">نام</th>
-       <th scope="col">نام خانوادگی</th>
-       <th scope="col">کد ملی</th>
-       <th scope="col">جنسیت</th>
-       <th scope="col">سمت</th>
-       <th scope="col">تاریخ تولد</th>
-       <th scope="col"> جزئیات </th>
-     </tr>
-   </thead>
-   <tbody>
-     <% for(let i=0; i < employees.length ; i++) { %>
-     <tr id="tr<%= i+1 %>">
-       <td id="tr<%= i+1 %>-row"><%= i+1 %></td>
-       <td id="tr<%= i+1 %>-firstName"><%= employees[i].firstName %></td>
-       <td id="tr<%= i+1 %>-lastName"><%= employees[i].lastName %></td>
-       <td id="tr<%= i+1 %>-national"><%= employees[i].nationalCode %></td>
-       <td id="tr<%= i+1 %>-gender"><% if(employees[i].gender==='male'){ %>مرد<%}else{ %>زن<%} %></td>
-       <td id="tr<%= i+1 %>-isManager"><% if(employees[i].isManager){ %>مدیر<%}else{ %>کارمند<%} %></td>
-       <td id="tr<%= i+1 %>-birthday">
-         <%= jalali.from(employees[i].birthdayDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %></td>
-       <td>
-         <i class="fa fa-trash" title="حذف" onclick="deleteEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>')"></i>
-         <i class='fa fa-edit' title="ویرایش" onclick="editEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>', 'tr<%= i+1 %>')"></i>
-       </td>
-     </tr>
-     <% }; %>
-   </tbody>
- </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ثبت کارمند جدید</h5>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="first-name" class="form-control" placeholder="نام">
+          <input type="text" id="last-name" class="form-control" placeholder="نام خانوادگی">
+          <input type="text" id="national-code" class="form-control" placeholder="کد ملی">
+          <select id="gender" class="form-control">
+            <option value="female">زن</option>
+            <option value="male">مرد</option>
+          </select>
+          <select id="isManager" class="form-control">
+            <option value="false">کارمند</option>
+            <option value="true">مدیر</option>
+          </select>
+          <input type="text" id="birthday" class="form-control" placeholder="تاریخ تولد">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="cancleFunc()">انصراف</button>
+          <button type="button" class="btn btn-primary" onclick="addEmployee('<%= companyId %>')">اضافه کن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" id="add-btn" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i
+      class="fa fa-plus"></i></button>
+  <a href="http://localhost:8000/companies/allCompanies" class="btn btn-primary"> بازگشت به لیست شرکت ها</a>
+  <table class="table table-hover table-dark col-10">
+    <thead>
+      <tr>
+        <th scope="col">ردیف</th>
+        <th scope="col">نام</th>
+        <th scope="col">نام خانوادگی</th>
+        <th scope="col">کد ملی</th>
+        <th scope="col">جنسیت</th>
+        <th scope="col">سمت</th>
+        <th scope="col">تاریخ تولد</th>
+        <th scope="col"> جزئیات </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i=0; i < employees.length ; i++) { %>
+      <tr id="tr<%= i+1 %>">
+        <td id="tr<%= i+1 %>-row"><%= i+1 %></td>
+        <td id="tr<%= i+1 %>-firstName"><%= employees[i].firstName %></td>
+        <td id="tr<%= i+1 %>-lastName"><%= employees[i].lastName %></td>
+        <td id="tr<%= i+1 %>-national"><%= employees[i].nationalCode %></td>
+        <td id="tr<%= i+1 %>-gender"><% if(employees[i].gender==='male'){ %>مرد<%}else{ %>زن<%} %></td>
+        <td id="tr<%= i+1 %>-isManager"><% if(employees[i].isManager){ %>مدیر<%}else{ %>کارمند<%} %></td>
+        <td id="tr<%= i+1 %>-birthday">
+          <%= jalali.from(employees[i].birthdayDate.toLocaleDateString(), 'en', 'MM/DD/YYYY').format('jYYYY/jMM/jDD'); %>
+        </td>
+        <td>
+          <i class="fa fa-trash" title="حذف"
+            onclick="deleteEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>')"></i>
+          <i class='fa fa-edit' title="ویرایش"
+            onclick="editEmployee('<%= employees[i].id %>','<%= employees[i].companyInfo.id %>', 'tr<%= i+1 %>')"></i>
+        </td>
+      </tr>
+      <% }; %>
+    </tbody>
+  </table>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
   </script>
@@ -91,7 +94,7 @@
   <script src="/javascripts/jquery-3.4.1.js"></script>
   <script src="/datePicker/js/persianDatepicker.min.js"></script>
   <script src="/javascripts/employeeClient.js"></script>
-  
+
 </body>
 
 </html>
