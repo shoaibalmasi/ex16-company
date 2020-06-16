@@ -166,7 +166,7 @@ router.post('/filter', (req, res) => {
     // find companies that are between two dates
     Company.find({
             registrationDate: {
-                $gte: new Date(startDate),
+                $gt: new Date(startDate),
                 $lt: new Date(endDate)
             }
         },
