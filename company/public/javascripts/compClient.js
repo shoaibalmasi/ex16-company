@@ -1,6 +1,8 @@
 // call date picker
 $(function() {
-    $("#reg-date").persianDatepicker();     
+    $("#reg-date").persianDatepicker(); 
+    $("#from-date").persianDatepicker(); 
+    $("#to-date").persianDatepicker();     
 });
 
 
@@ -145,4 +147,29 @@ function companyPage(id){
             document.location='/error' 
         }
     });
+}
+
+
+//func for filtering companies by registeration date
+function dateFilter(){
+    if($('#from-date').val()==="" || $('#to-date').val()===""){
+        alert("هر دو فیلد تاریخ را پر کنید")
+    }else{
+    console.log($('#from-date').val());
+    console.log($('#to-date').val());
+    $.ajax({
+        type: "POST",
+        url: "/companies/filter",
+        data: {dateFrom:$('#from-date').val(), dateTo:$('#to-date').val()},
+        // dataType: "dataType",
+        success: function (response) {
+            document.location='/companies/allCompanies';
+            
+        },
+        error: function (err){
+            document.location='/error' 
+        }
+    });
+   
+}
 }

@@ -20,6 +20,7 @@ table{
   border-radius: 30px;
   width: 60px;
   height: 60px;
+  margin: 10px;
 }
 .fa-edit{
   color: yellow;
@@ -63,3 +64,16 @@ a{
 a:not([href]) {
   color: white;
 }
+
+form{
+  display: flex;
+  flex-direction: row-reverse;
+  /* justify-content: space-between; */
+  align-content:space-between ;
+
+
+
+}
+/* #from-date ,#to-date{
+  
+} */
