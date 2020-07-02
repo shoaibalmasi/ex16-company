@@ -21,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//connect mongoose
 mongoose.connect(
   'mongodb://localhost:27017/companyDB', 
   {
@@ -31,8 +33,12 @@ mongoose.connect(
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
+//route middlewares
 app.use('/companies', companiesRouter);
 app.use('/employees', employeesRouter);
+
+//func for make employees
+//  require('./tools/employeeMaker')();
 
 
 // catch 404 and forward to error handler
