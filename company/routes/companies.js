@@ -150,10 +150,10 @@ router.delete("/deleteCompany/:companyId", (req, res) => {
     })
 });
 
-// get for filtering by date
+// post for filtering by date
 router.post('/filter', (req, res) => {
     //check empty fields;
-    if (req.body.dateFrom === '' || req.body.dateTo === '') {
+    if (!req.body.dateFrom || !req.body.dateTo) {
         return res.status(400).json({
             status: 'failure',
             message: 'Please ensure you pick two dates'
